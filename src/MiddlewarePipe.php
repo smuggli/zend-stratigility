@@ -17,6 +17,15 @@ use Webimpress\HttpMiddlewareCompatibility\HandlerInterface as DelegateInterface
 use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface as ServerMiddlewareInterface;
 use Zend\Stratigility\Exception\InvalidMiddlewareException;
 
+use function strlen;
+use function substr;
+use function rtrim;
+use function is_callable;
+use function is_array;
+use function is_object;
+use function array_shift;
+use function get_class;
+
 /**
  * Pipe middleware like unix pipes.
  *
@@ -227,7 +236,7 @@ class MiddlewarePipe implements ServerMiddlewareInterface
 
         $params = $r->getParameters();
         $type = $params[1]->getClass();
-        if (! $type || ! is_a($type->getName(), DelegateInterface::class, true)) {
+        if (! $type || ! ($type->getName() instanceof DelegateInterface)) {
             return $this->getCallableMiddlewareDecorator()
                 ->decorateCallableMiddleware($middleware);
         }

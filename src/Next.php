@@ -17,6 +17,13 @@ use Webimpress\HttpMiddlewareCompatibility\HandlerInterface as DelegateInterface
 
 use const Webimpress\HttpMiddlewareCompatibility\HANDLER_METHOD;
 
+use function strlen;
+use function substr;
+use function strtolower;
+use function rtrim;
+use function get_class;
+use function str_replace;
+
 /**
  * Iterate a queue of middlewares and execute them.
  */
